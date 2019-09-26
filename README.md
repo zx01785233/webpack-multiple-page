@@ -1,12 +1,10 @@
-# webpack4多页面脚手架 [(移步webpack3多页面)](https://github.com/WangZhenHao/webpack-multiple-page/tree/webpack3)
+# webpack4多页面脚手架 
 
 ## 适用于多个静态页面的显示, 如官网   
 
 ### html-loader复用头文件和尾部文件
-### [源码地址: https://github.com/WangZhenHao/webpack-multiple-page](https://github.com/WangZhenHao/webpack-multiple-page)
 
 
-### [案例:移动端官网](https://ss-sites.zhongxiang51.com/)
 
 #### 1.1.0 新增自动创建文件功能
 ```
@@ -75,4 +73,4 @@ npm run dev
 npm run build
 ```
 
-### qq讨论群: 475870039
+
