@@ -1,6 +1,49 @@
 /**
  * scss的公共样式
  */
-body {
-	background: pink;
+@import '@/assets/css/1.scss'; //分段
+ //盒子模型
+@mixin dib() {
+    display: inline-block;
+    *display: inline;
+    *zoom: 1;
+}
+ //清楚浮动
+@mixin clearfix {
+    &:after {
+        clear: both;
+        content: '.';
+        display: block;
+        height: 0;
+        line-height: 0;
+        overflow: hidden;
+    }
+    *height: 1%;
+}
+
+@mixin PLeftTop {
+	position: absolute;
+	left: 0;
+   top: 0;
+}
+
+$imgPre:  '/static/img/jk/';
+//转换图片路径
+@mixin bg-url($name) {
+	background: url('#{$imgPre}#{$name}')
+}
+body,html{
+	min-width: 1300px;
+  height: 100%;
+  width: 100%
+}
+
+// 定义布局  用绝对定位去解决ie无法用flex的问题
+.sys-head{
+	@include PLeftTop ;
+	height: 50px;
+	width: 100%;
+   &{
+	@include bg-url('bg_header1.png') ;
+   }
 }

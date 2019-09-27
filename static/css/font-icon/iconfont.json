@@ -1,0 +1,44 @@
+{
+  "id": "1437129",
+  "name": "Jinke3",
+  "font_family": "iconfont",
+  "css_prefix_text": "icon",
+  "description": "",
+  "glyphs": [
+    {
+      "icon_id": "11085049",
+      "name": "menu_backstage",
+      "font_class": "menu_backstage",
+      "unicode": "e659",
+      "unicode_decimal": 58969
+    },
+    {
+      "icon_id": "11085050",
+      "name": "menu_dynamic",
+      "font_class": "menu_dynamic",
+      "unicode": "e65a",
+      "unicode_decimal": 58970
+    },
+    {
+      "icon_id": "11085051",
+      "name": "menu_project",
+      "font_class": "menu_project",
+      "unicode": "e65b",
+      "unicode_decimal": 58971
+    },
+    {
+      "icon_id": "11085052",
+      "name": "menu_node",
+      "font_class": "menu_node",
+      "unicode": "e65c",
+      "unicode_decimal": 58972
+    },
+    {
+      "icon_id": "11085053",
+      "name": "menu_plan",
+      "font_class": "menu_plan",
+      "unicode": "e65d",
+      "unicode_decimal": 58973
+    }
+  ]
+}
