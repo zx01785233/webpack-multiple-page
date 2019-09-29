@@ -14,26 +14,31 @@ const pagesGenerate = getPageGenerate();
 const config = require('./config/index.js');
 
 const prodWebpackConfig = merge(common, {
-	mode: "production",
-	output: {
-		filename: assetsPath('js/[name].[chunkhash].js'),
-		path: config.build.path,
-		publicPath: config.build.publicPath,
-		// chunkFilename: 
-	},
-	module: {
-		rules: [
-			{
-				test: /\.(c|sc)ss$/,
-				use: [
-					MiniCssExtractPlugin.loader,
-					'css-loader',
-					"sass-loader"
-				]
-			}
-		]
-	},
-	optimization: {
+  mode: "production",
+  output: {
+    filename: assetsPath('js/[name].[chunkhash].js'),
+    path: config.build.path,
+    publicPath: config.build.publicPath,
+    // chunkFilename: 
+  },
+  module: {
+    rules: [
+      {
+        test: /\.(c|sc)ss$/,
+        use: [		 
+		  {
+            loader: MiniCssExtractPlugin.loader, //loader是哪个
+            options:{   //所有的配置参数都要放在这个对象里面
+              publicPath:'../../'    //这个表示在css文件里但凡用到地址的地方在其前面加个目录'../'，这个是为了能找到图片
+            }
+          },
+          'css-loader',
+          "sass-loader"
+        ]
+      }
+    ]
+  },
+  optimization: {
 	    splitChunks: {
 	      cacheGroups: {
 	        common: {
@@ -46,17 +51,17 @@ const prodWebpackConfig = merge(common, {
 	        }
 	      }
 	    }
-	},
-	plugins: [
+  },
+  plugins: [
 	    ...pagesGenerate.htmlWebpackPlugin,
-        new CleanWebpackPlugin(),
+    new CleanWebpackPlugin(),
 	    new OptimizeCSSPlugin({
 	      cssProcessorOptions: { safe: true }
 	    }),
 	    new MiniCssExtractPlugin({
-    　　  filename: assetsPath("css/[name].[chunkhash].css") 
-        })
+      filename: assetsPath("css/[name].[chunkhash].css") 
+    })
         
-	]
+  ]
 })
 module.exports = prodWebpackConfig;

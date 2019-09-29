@@ -2,13 +2,20 @@
  * scss的公共样式
  */
 @import '@/assets/css/1.scss'; //分段
- //盒子模型
-@mixin dib() {
-    display: inline-block;
-    *display: inline;
-    *zoom: 1;
+
+// //盒子模型
+// @mixin dib() {
+//     display: inline-block;
+//     *display: inline;
+//     *zoom: 1;
+// }
+
+//IE的盒怪异模式
+@mixin boxSizing {
+    box-sizing: border-box; //定义盒子模型为内边距模型  width=width
 }
- //清楚浮动
+
+//清楚浮动
 @mixin clearfix {
     &:after {
         clear: both;
@@ -18,32 +25,193 @@
         line-height: 0;
         overflow: hidden;
     }
-    *height: 1%;
+
+    *height: 1%; //兼容ie
 }
 
-@mixin PLeftTop {
-	position: absolute;
-	left: 0;
-   top: 0;
+@mixin PLeftTop($index) {
+    position: absolute;
+    left: 0;
+    top: 0;
+    z-index: $index;
+    @include boxSizing;
 }
 
-$imgPre:  '/static/img/jk/';
+//$imgPreJk: '/static/img/jk/'; //图片的公共路径
+$headbgimg:'bg_header1.png'; //头
+$headRtbgimg:'bg_header2_02.png'; //头 右边的气泡
+$leftbgimg:'bj_menu.png'; //左边菜单
+
 //转换图片路径
 @mixin bg-url($name) {
-	background: url('#{$imgPre}#{$name}')
+    @content;
+    background: url(~@/assets/img/jk/#{$name}) no-repeat;
 }
-body,html{
-	min-width: 1300px;
-  height: 100%;
-  width: 100%
+
+body,
+html {
+    min-width: 1300px;
+    height: 100%;
+    width: 100%;
+    font-size: 14px;
 }
 
 // 定义布局  用绝对定位去解决ie无法用flex的问题
-.sys-head{
-	@include PLeftTop ;
-	height: 50px;
-	width: 100%;
-   &{
-	@include bg-url('bg_header1.png') ;
-   }
+//定义变量 宽度
+$sysTop:50px;
+$sysLeft:230px;
+$colornorm:#92c3e2;
+
+.sys-head {
+    //头
+    @include PLeftTop(3);
+
+    height: $sysTop;
+    width: 100%;
+
+    >* {
+        float: left;
+    }
+
+    & {
+        @include bg-url($headbgimg) {
+            background-size: 100% 100%;
+        }
+
+    }
+
+    >.head__log {
+        padding-left: 15px;
+        padding-top: 5px;
+        width: $sysLeft;
+    }
 }
+
+.head-nav {
+    >span {
+        color: $colornorm;
+        display: inline-block;
+        padding-top: 15px;
+        padding-bottom: 3px;
+        margin-right: 25px;
+        cursor: pointer;
+
+        &:hover,
+        &.active {
+            color: #fff;
+            font-weight: bold;
+            border-bottom: 2px solid #fff;
+
+        }
+    }
+}
+
+.head__rt-bg {
+    height: 50px;
+    position: absolute;
+    right: 0;
+    width: 529px;
+    padding-top: 11px;
+
+    @include bg-url($headRtbgimg) {
+        background-size: 100% 100%;
+    }
+
+    >.iconfont {
+        cursor: pointer;
+        float: right;
+        font-size: 20px;
+        color: #fff;
+        margin: 0 10px;
+
+        &:first-child {
+            margin-right: 25px;
+        }
+    }
+}
+
+.sys-left {
+    @include PLeftTop(2);
+    height: 100%;
+    width: $sysLeft;
+    padding-top: $sysTop;
+
+    & {
+        @include bg-url($leftbgimg) {
+            background-size: 100% 100%;
+
+        }
+
+    }
+
+    .sys-left__hr {
+        background-color: #2371a0;
+        border-top: 1px solid #1e6691;
+        height: 4px;
+        border-bottom: 1px solid #4a8db8;
+    }
+}
+
+.member-box {
+    text-align: center;
+    color: #fff;
+    padding-top: 15px;
+    font-size: 12px;
+    padding-bottom: 15px;
+
+    .member-box__name {
+        font-size: 16px;
+    }
+
+    .member-box-do {
+        margin-top: 15px;
+
+        >div {
+            cursor: pointer;
+            width: 50%;
+            box-sizing: border-box;
+            float: left;
+            margin: 5px 0;
+
+            &:nth-child(odd) {
+                //应该用伪类替代
+                border-right: 1px solid #72a3c8;
+            }
+        }
+    }
+
+    @include clearfix;
+}
+
+.menu-nav {
+    color: #fff;
+
+    .menu-nav-li {
+        height: 40px;
+        line-height: 40px;
+        padding-left: 15px;
+        border-left: 5px solid transparent;
+        .iconfont {
+            margin-right: 5px;
+        }
+
+        &:hover,&.active {
+            .menu-nav-li__text {
+                font-weight: bold;
+            }
+          background-color: rgba( #fff, 0.17);
+          border-left: 5px solid #fd8d06;
+        }
+    }
+}
+
+.sys-body {
+    @include PLeftTop(1);
+    width: 100%;
+    height: 100%;
+    padding-top: $sysTop;
+    padding-left: $sysLeft;
+}
+
+
+//
